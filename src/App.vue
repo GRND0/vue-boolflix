@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <FlixHeader @search="ricercaDati($event)" />
+    <FlixMain :items='movies' /> <!-- passo movies -->
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import FlixHeader from "./components/FlixHeader.vue";
+import FlixMain from "./components/FlixMain.vue";
+import axios from "axios";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    FlixHeader,
+    FlixMain,
+
+  },
+  data: function () {
+    return {
+      movies: [],
+    }
+  },
+  methods: {
+    ricercaDati(query) {
+      axios
+        .get('https://api.themoviedb.org/3/search/movie?', {
+          params: {
+            api_key: '278df2843e911190453b62b7973fd96e',
+            query: query
+          }
+        })
+        .then((resp) => {
+            console.log(resp);
+            this.movies = resp.data.results;
+          });
+    },
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
