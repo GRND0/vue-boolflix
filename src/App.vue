@@ -32,9 +32,20 @@ export default {
           }
         })
         .then((resp) => {
-            console.log(resp);
-            this.movies = resp.data.results;
-          });
+          console.log(resp);
+          this.movies = resp.data.results;
+        });
+      axios
+        .get('https://api.themoviedb.org/3/search/tv?', {
+          params: {
+            api_key: '278df2843e911190453b62b7973fd96e',
+            query: query
+          }
+        })
+        .then((resp) => {
+          console.log(resp);
+          this.movies=[...this.movies, ...resp.data.results];
+        });
     },
   },
 };
