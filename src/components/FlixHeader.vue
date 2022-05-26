@@ -1,5 +1,5 @@
 <template>
-    <div class="header"> 
+    <div class="header">
         <div class="logo"><img src="../assets/c072857f28ffed69c9266a55183f4c20.png" alt=""></div>
         <div class="wrapper-ricerca">
             <input type="text" placeholder="Cerca film o serie TV" v-model="ricerca">
@@ -33,7 +33,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid gray;
-    
+
     .logo {
         height: 70%;
         margin-left: 2rem;

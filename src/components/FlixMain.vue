@@ -2,22 +2,23 @@
     <div>
         <div class="wrapper">
             <div class="card" v-for="(item, index) in items" :key="index">
-                <div class="wrapper-info" :class="{invisibile: nascosto}"  >
+                <div class="wrapper-info" :class="{ invisibile: nascosto }">
                     <h4 v-if="item.title"> Titolo : {{ item.title }}</h4>
                     <h4 v-else> Titolo : {{ item.name }}</h4>
                     <h4 v-if="item.original_name"> Titolo originale : {{ item.original_name }}</h4>
                     <h4 v-else> Titolo originale : {{ item.original_title }}</h4>
                     <country-flag :country="item.original_language" />
-                    <h5> Voto {{ divisioneArrotondata(item.vote_average) }}</h5>
-                    <!-- <star-rating v-model="voto" read-only="true"></star-rating> -->
+                    <h5 v-if="item.vote_average === 0"> Nessuna valutazione! </h5>
+                    <h5 v-else> Voto {{ divisioneArrotondata(item.vote_average) }} </h5>
                     <span v-for="number in divisioneArrotondata(item.vote_average) " :key="number"> <i
                             class="fas fa-star">
                         </i></span>
-                    <span class="descrizione">{{item.overview}}</span>    
+                    <span class="descrizione">{{ item.overview }}</span>
                 </div>
-                <img class="wrapper-flip" v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w500/${item.poster_path}`" alt="">
+                <img class="wrapper-flip" v-if="item.poster_path"
+                    :src="`http://image.tmdb.org/t/p/w500/${item.poster_path}`" alt="">
                 <div class="placeholder" v-else>
-                <h2>NO POSTER</h2>
+                    <h2>NO POSTER</h2>
                 </div>
             </div>
         </div>
@@ -28,20 +29,18 @@
 <script>
 
 import CountryFlag from 'vue-country-flag';
-// import StarRating from 'vue-star-rating';
 
 export default {
     name: "FlixMain",
     components: {
         CountryFlag,
-        // StarRating,
     },
     props: {
         items: Array,
     },
     data: function () {
         return {
-            nascosto : true 
+            nascosto: true
 
         }
     },
@@ -95,13 +94,20 @@ export default {
         background-color: #394a5a;
         // border: solid 1px white;
         box-shadow: 5px 5px 5px rgba($color: black, $alpha: 0.3);
-        overflow-y: hidden;
-        
+
+
+
 
 
         .wrapper-info {
             padding: 0.5rem;
             color: white;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .wrapper-info * {
+            margin-bottom: 0.5rem;
         }
 
         img {
@@ -112,6 +118,9 @@ export default {
 
         .descrizione {
             display: block;
+            font-weight: 200;
+            font-style: italic;
+
         }
 
     }
@@ -127,7 +136,7 @@ export default {
         justify-content: center;
         align-items: center;
 
-        
+
     }
 
 }

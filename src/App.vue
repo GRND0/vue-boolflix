@@ -44,7 +44,7 @@ export default {
         })
         .then((resp) => {
           console.log(resp);
-          this.movies=[...this.movies, ...resp.data.results];
+          this.movies = [...this.movies, ...resp.data.results];
         });
     },
   },
