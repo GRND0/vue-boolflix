@@ -3,18 +3,22 @@
         <div class="wrapper">
             <div class="card" v-for="(item, index) in items" :key="index">
                 <div class="wrapper-info" :class="{invisibile: nascosto}"  >
-                    <h4> Titolo : {{ item.title }}</h4>
-                    <h4> TItolo : {{ item.name }}</h4>
-                    <h4> Titolo originale : {{ item.original_name }}</h4>
-                    <h4> TItolo originale : {{ item.original_title }}</h4>
+                    <h4 v-if="item.title"> Titolo : {{ item.title }}</h4>
+                    <h4 v-else> Titolo : {{ item.name }}</h4>
+                    <h4 v-if="item.original_name"> Titolo originale : {{ item.original_name }}</h4>
+                    <h4 v-else> Titolo originale : {{ item.original_title }}</h4>
                     <country-flag :country="item.original_language" />
-                    <h4> Voto {{ divisioneArrotondata(item.vote_average) }}</h4>
+                    <h5> Voto {{ divisioneArrotondata(item.vote_average) }}</h5>
                     <!-- <star-rating v-model="voto" read-only="true"></star-rating> -->
                     <span v-for="number in divisioneArrotondata(item.vote_average) " :key="number"> <i
                             class="fas fa-star">
                         </i></span>
+                    <span class="descrizione">{{item.overview}}</span>    
                 </div>
-                <img class="wrapper-flip" :src="`http://image.tmdb.org/t/p/w500/${item.poster_path}`" alt="">
+                <img class="wrapper-flip" v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w500/${item.poster_path}`" alt="">
+                <div class="placeholder" v-else>
+                <h2>NO POSTER</h2>
+                </div>
             </div>
         </div>
 
@@ -80,15 +84,50 @@ export default {
     width: 100%;
     height: calc(100vh - 50px);
     padding: 1rem;
-    background-color: black;
+    background-color: #1e2d3b;
     overflow-y: scroll;
+    color: lightgray;
 
     .card {
         width: calc(100% / 6 - 2rem);
+        height: 420px;
         margin: 0.5rem;
-        background-color: darkgrey;
-        border: solid 1px white;
+        background-color: #394a5a;
+        // border: solid 1px white;
+        box-shadow: 5px 5px 5px rgba($color: black, $alpha: 0.3);
+        overflow-y: hidden;
+        
 
+
+        .wrapper-info {
+            padding: 0.5rem;
+            color: white;
+        }
+
+        img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+
+        .descrizione {
+            display: block;
+        }
+
+    }
+
+    .fa-star {
+        color: gold;
+    }
+
+    .placeholder {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        
     }
 
 }
