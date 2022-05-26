@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <!-- Trasmissione e ricezione dai componenti dei dati necessari -->
     <FlixHeader @search="ricercaDati($event)" />
-    <FlixMain :items='movies' /> <!-- passo movies -->
+    <FlixMain :items='movies' /> 
   </div>
 </template>
 
@@ -23,6 +24,7 @@ export default {
     }
   },
   methods: {
+    //chiamate API dei dati richiesti
     ricercaDati(query) {
       axios
         .get('https://api.themoviedb.org/3/search/movie?', {

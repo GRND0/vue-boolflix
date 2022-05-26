@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- struttura principale delle card  -->
         <div class="wrapper">
             <div class="card" v-for="(item, index) in items" :key="index">
                 <div class="wrapper-info" :class="{ invisibile: nascosto }">
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-
+//importazione del modulo che gestisce le bandiere visualizzate
 import CountryFlag from 'vue-country-flag';
 
 export default {
@@ -36,6 +37,7 @@ export default {
         CountryFlag,
     },
     props: {
+        //importazione dei dati tramite prop
         items: Array,
     },
     data: function () {
@@ -45,6 +47,7 @@ export default {
         }
     },
     methods: {
+        //funzione di conversione in base cinque e arrotondamento del voto
         divisioneArrotondata(votoGrezzo) {
             let voto = 0
             voto = Math.ceil(votoGrezzo / 2)
@@ -60,7 +63,7 @@ export default {
 <style lang="scss">
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import "../style/common.scss";
-
+//regole CSS dei componenti della pagina
 .card .wrapper-info {
     display: none;
 }
